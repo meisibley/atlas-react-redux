@@ -12,6 +12,7 @@ const List: React.FC = () => {
             <h3 className="text-center">To Do</h3>
             <Card />
             <Card />
+            <Card />
             <NewCardForm />
         </>
     );
