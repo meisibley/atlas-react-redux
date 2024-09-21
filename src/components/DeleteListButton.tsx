@@ -1,8 +1,19 @@
-import React from "react";
+import { useAppDispatch } from "./store";
+import { deleteList } from "../slices/listsSlice";
 
-const DeleteListButton: React.FC = () => {
+interface DeleteProps {
+  listId: string;
+}
+
+export default function DeleteListButton({ listId }: DeleteProps) {
+    const dispatch = useAppDispatch();
+    const handleDelete = () => {
+        dispatch(deleteList({ id: listId }));
+    };
+
     return (
-        <button className="flex justify-center h-[30px]" onClick={() => alert('Delete list')}>
+        // <button className="flex justify-center h-[30px]" onClick={() => alert('Delete list')}>
+        <button className="flex justify-center h-[30px]" onClick={handleDelete}>
             <svg
               className="h-[30px] w-[30px] cursor-pointer group-hover/list:block"
               xmlns="http://www.w3.org/2000/svg"
@@ -20,5 +31,3 @@ const DeleteListButton: React.FC = () => {
         </button>
     );
 }
-
-export default DeleteListButton;
