@@ -13,15 +13,16 @@ interface ListProps {
 }
 
 const List: React.FC<ListProps> = ({ list }) => {
+    const cards = useAppSelector((state: RootState) => state.cards.cardItems.filter(card => card.listId === list.id));
+
     return (
         <>
-            <div className="flex justify-between">
-                <h3>{list.title}</h3>
-                {/* <DeleteListButton onClick={() => dispatch(deleteList({ id: list.id }))} /> */}
+            <div className="flex flex-col items-center">
                 <DeleteListButton listId={list.id} />
+                <h3 className="justify-center">{list.title}</h3>
             </div>
-            {list.cardIds.map((cardId) => (
-                <Card key={cardId} id={cardId} />
+            {cards.map(card => (
+                <Card key={card.id} id={card.id} title={card.title} description={card.description} />
             ))}
             <NewCardForm listId={list.id} />
         </>

@@ -24,7 +24,7 @@ export default function Footer() {
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
-                    placeholder="List title"
+                    placeholder="Add List"
                     name="title"
                     value={title}
                     className="border-0 bg-transparent text-3xl font-semibold text-blue placeholder:text-blue placeholder:opacity-50 focus:outline-none"

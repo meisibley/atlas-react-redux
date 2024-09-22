@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import { useAppDispatch } from "./store";
-import { addCardToList } from "../slices/listsSlice";
+import { createCard } from "../slices/cardsSlice";
+// import { addCardToList } from "../slices/listsSlice";
 
 interface NewCardFormProps {
   listId: string;
@@ -11,16 +12,18 @@ const NewCardForm: React.FC<NewCardFormProps> = ({ listId }) => {
     const [description, setDescription] = useState("");
     const dispatch = useAppDispatch();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        const cardId = Date.now().toString();
-        dispatch(addCardToList({ listId, cardId, title, description }));
-        setTitle("");
-        setDescription("");
+        // const cardId = Date.now().toString();
+        if (title.trim() && description.trim()) {
+          dispatch(createCard({ title, description, listId }));
+          setTitle("");
+          setDescription("");
+        }
     };
 
     return (
-        <div className="group/new-card m-3 flex h-44 w-full justify-center" style={{ width: '400px' }}>
+        <div className="group/new-card m-3 flex h-44 w-full justify-center" style={{ width: '350px' }}>
             <form
                 onSubmit={handleSubmit}
                 className="hidden min-h-24 w-full flex-col items-start rounded bg-off-white-light px-4 text-blue group-hover/new-card:flex"
@@ -31,16 +34,16 @@ const NewCardForm: React.FC<NewCardFormProps> = ({ listId }) => {
                     onChange={(e) => setTitle(e.target.value)}
                     type="text"
                     placeholder="Title"
-                    name="title"
+                    // name="title"
                 />
                 <textarea
                     className="w-11/12 resize-none overflow-auto border-0 bg-off-white-light text-blue outline-none"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Description"
-                    name="description"
-                ></textarea>
-                <div className="buttons w-full">
+                    // name="description"
+                />
+                <div className="w-full">
                     <button type="submit" className="w-full p-4">Save</button>
                 </div>
             </form>
