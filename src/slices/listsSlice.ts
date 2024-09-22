@@ -33,7 +33,6 @@ const listsSlice = createSlice({
             const list = state.lists.find(list => list.id === action.payload.listId);
             if (list) {
                 list.cardIds.push(action.payload.cardId);
-                // dispatch(addCard({ id: action.payload.cardId, title: action.payload.title, description: action.payload.description }));
             }
         },
         clearBoard: (state) => {

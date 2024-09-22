@@ -1,7 +1,6 @@
 import React, { useState, FormEvent } from "react";
 import { useAppDispatch } from "./store";
 import { createCard } from "../slices/cardsSlice";
-// import { addCardToList } from "../slices/listsSlice";
 
 interface NewCardFormProps {
   listId: string;
@@ -14,7 +13,6 @@ const NewCardForm: React.FC<NewCardFormProps> = ({ listId }) => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        // const cardId = Date.now().toString();
         if (title.trim() && description.trim()) {
           dispatch(createCard({ title, description, listId }));
           setTitle("");
@@ -34,14 +32,12 @@ const NewCardForm: React.FC<NewCardFormProps> = ({ listId }) => {
                     onChange={(e) => setTitle(e.target.value)}
                     type="text"
                     placeholder="Title"
-                    // name="title"
                 />
                 <textarea
                     className="w-11/12 resize-none overflow-auto border-0 bg-off-white-light text-blue outline-none"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Description"
-                    // name="description"
                 />
                 <div className="w-full">
                     <button type="submit" className="w-full p-4">Save</button>
