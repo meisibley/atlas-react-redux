@@ -1,7 +1,8 @@
 import { useState, FormEvent } from "react";
 import { useAppDispatch } from "./store";
-import { addList, clearBoard } from "../slices/listsSlice";
-import { clearBoard as clearCards } from "../slices/cardsSlice"; // Import the clearCards action
+import { addList, clearBoard as clearLists } from "../slices/listsSlice";
+import { clearBoard as clearCards } from "../slices/cardsSlice";
+import { persistor } from "./store";
 
 export default function Footer() {
     const [title, setTitle] = useState("");
@@ -16,8 +17,9 @@ export default function Footer() {
     };
 
     const handleClearBoard = () => {
-        dispatch(clearBoard());
+        dispatch(clearLists());
         dispatch(clearCards());
+        persistor.purge();
     };
 
     return (
@@ -42,7 +44,7 @@ export default function Footer() {
                     type="button"
                     className="rounded bg-teal px-6 py-4 text-xl font-semibold text-off-white-light"
                 >
-                Clear Board
+                    Clear Board
                 </button>
             </form>
         </footer>
