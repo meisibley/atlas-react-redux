@@ -1,6 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import { useAppDispatch } from "./store";
 import { createCard } from "../slices/cardsSlice";
+import { addCardToList } from "../slices/listsSlice";
 
 interface NewCardFormProps {
   listId: string;
@@ -14,9 +15,12 @@ const NewCardForm: React.FC<NewCardFormProps> = ({ listId }) => {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         if (title.trim() && description.trim()) {
-          dispatch(createCard({ title, description, listId }));
-          setTitle("");
-          setDescription("");
+            const newCardId = Date.now().toString();
+            dispatch(createCard({ id: newCardId, title, description, listId }));
+            dispatch(addCardToList({ listId, cardId: newCardId }));
+
+            setTitle("");
+            setDescription("");
         }
     };
 

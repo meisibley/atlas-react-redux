@@ -1,6 +1,7 @@
 import { useState, FormEvent } from "react";
 import { useAppDispatch } from "./store";
 import { addList, clearBoard } from "../slices/listsSlice";
+import { clearBoard as clearCards } from "../slices/cardsSlice"; // Import the clearCards action
 
 export default function Footer() {
     const [title, setTitle] = useState("");
@@ -16,11 +17,11 @@ export default function Footer() {
 
     const handleClearBoard = () => {
         dispatch(clearBoard());
+        dispatch(clearCards());
     };
 
     return (
         <footer className="sticky bottom-0 left-0 flex w-screen items-center justify-center space-x-8 border-t-2 border-blue bg-off-white-light p-8">
-            {/* <form onSubmit={() => alert('Create list')}> */}
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -37,7 +38,6 @@ export default function Footer() {
                 Save
                 </button>
                 <button
-                    // onClick={() => alert('Clear board')}
                     onClick={handleClearBoard}
                     type="button"
                     className="rounded bg-teal px-6 py-4 text-xl font-semibold text-off-white-light"

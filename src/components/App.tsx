@@ -8,7 +8,7 @@ function App() {
   return (
     <Provider store={store}>
       <Header />
-      <Board />
+        <Board />
       <Footer />
     </Provider>
   );

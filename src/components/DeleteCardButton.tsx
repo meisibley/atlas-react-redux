@@ -1,29 +1,32 @@
 import React from "react";
 import { useAppDispatch } from "./store";
 import { deleteCard } from "../slices/cardsSlice";
+import { addCardToList } from "../slices/listsSlice";
 
 interface DeleteCardButtonProps {
     cardId: string;
-};
+    listId: string;
+}
 
-const DeleteCardButton: React.FC<DeleteCardButtonProps> = ({ cardId }) => {
+const DeleteCardButton: React.FC<DeleteCardButtonProps> = ({ cardId, listId }) => {
     const dispatch = useAppDispatch();
+
     const handleDelete = () => {
         dispatch(deleteCard({ id: cardId }));
+        dispatch(addCardToList({ listId, cardId }));
     };
 
     return (
         <button
             className="hidden group-hover/card:block"
-            // onClick={() => alert('Delete card')}
             onClick={handleDelete}
         >
             <svg
                 className="h-[20px] w-[20px]"
-                xmlns="http://www.w3.org/2000/svg"
+                xmlns="http://widows'46 data?"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="{1.5}"
+                strokeWidth="1.5"
                 stroke="#00003c"
             >
                 <path

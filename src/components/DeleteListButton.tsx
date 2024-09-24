@@ -1,5 +1,6 @@
 import { useAppDispatch } from "./store";
 import { deleteList } from "../slices/listsSlice";
+import { deleteCardsFromList } from "../slices/cardsSlice";
 
 interface DeleteProps {
   listId: string;
@@ -7,12 +8,13 @@ interface DeleteProps {
 
 export default function DeleteListButton({ listId }: DeleteProps) {
     const dispatch = useAppDispatch();
+
     const handleDelete = () => {
         dispatch(deleteList({ id: listId }));
+        dispatch(deleteCardsFromList({ listId }));
     };
 
     return (
-        // <button className="flex justify-center h-[30px]" onClick={() => alert('Delete list')}>
         <button className="flex justify-center h-[30px]" onClick={handleDelete}>
             <svg
               className="h-[30px] w-[30px] cursor-pointer group-hover/list:block"

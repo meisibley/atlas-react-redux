@@ -19,9 +19,10 @@ const cardsSlice = createSlice({
     name: 'cards',
     initialState,
     reducers: {
-        createCard: (state, action: PayloadAction<{ title: string; description: string; listId: string }>) => {
+        createCard: (state, action: PayloadAction<{ id: String; title: string; description: string; listId: string }>) => {
             const newCard: CardItem = {
-                id: Date.now().toString(),
+                // id: Date.now().toString(),
+                id: action.payload.id,
                 title: action.payload.title,
                 description: action.payload.description,
                 listId: action.payload.listId,
@@ -31,11 +32,20 @@ const cardsSlice = createSlice({
         deleteCard: (state, action: PayloadAction<{ id: string }>) => {
             state.cardItems = state.cardItems.filter(card => card.id !== action.payload.id);
         },
+        deleteCardsFromList: (state, action: PayloadAction<{ listId: string }>) => {
+            state.cardItems = state.cardItems.filter(card => card.listId !== action.payload.listId);
+        },
+        moveCard: (state, action: PayloadAction<{ cardId: string; destinationListId: string }>) => {
+            const card = state.cardItems.find(card => card.id === action.payload.cardId);
+            if (card) {
+                card.listId = action.payload.destinationListId;
+            }
+        },
         clearBoard: (state) => {
             state.cardItems = [];
         },
     },
 });
 
-export const { createCard, deleteCard, clearBoard } = cardsSlice.actions;
+export const { createCard, deleteCard, moveCard, deleteCardsFromList, clearBoard } = cardsSlice.actions;
 export default cardsSlice.reducer;
